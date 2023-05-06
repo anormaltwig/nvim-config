@@ -11,3 +11,11 @@ require("nvim-tree").setup({
 	},
 })
 
+local nvimtree = require("nvim-tree.api")
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, {callback = function()
+	nvimtree.tree.toggle({
+		focus = false,
+	})
+end})
+

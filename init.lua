@@ -1,4 +1,8 @@
+local vimapi = vim.api
+
 -- Editor Settings
+vim.opt.equalalways = false
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -32,9 +36,27 @@ vim.call("plug#begin")
 	plug("nvim-tree/nvim-tree.lua")
 vim.call("plug#end")
 
+vim.g.rust_recommended_style = false
+
 -- Plugin Config
 require("config.lualine")
 require("config.nvim-tree")
 
-vim.cmd("NvimTreeOpen")
+vim.api.nvim_create_autocmd({ "VimEnter" }, {callback = function()
+	-- Create Terminal Split
+	vim.cmd.split()
+	vim.cmd.wincmd("j")
+	local terminalWindow = vim.api.nvim_get_current_win()
+	vim.cmd.resize(10)
+	vim.cmd.terminal()
+	vim.cmd.wincmd("k")
+
+	vim.api.nvim_create_autocmd({ "WinResized" }, {
+		callback = function(event)
+			vim.api.nvim_win_call(terminalWindow, function()
+				vim.cmd.resize(10)
+			end)
+		end,
+	})
+end})
 
