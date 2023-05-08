@@ -1,5 +1,3 @@
-local vimapi = vim.api
-
 -- Editor Settings
 vim.opt.equalalways = false
 
@@ -24,12 +22,26 @@ vim.opt.listchars = {
 vim.opt.termguicolors = true
 
 -- Color
-vim.cmd("highlight CursorLine guibg=#333343")
-vim.cmd("highlight NonText guifg=#182c4d")
+local highlight = vim.cmd.highlight
+highlight("clear Pmenu")
+highlight("Pmenu guibg=#1a061d")
+
+highlight("CursorLine guibg=#241443")
+highlight("NonText guifg=#182c4d")
 
 -- Vim Plug
 local plug = vim.fn["plug#"]
 vim.call("plug#begin")
+	plug("neovim/nvim-lspconfig")
+	plug("hrsh7th/cmp-nvim-lsp")
+	plug("hrsh7th/cmp-buffer")
+	plug("hrsh7th/cmp-path")
+	plug("hrsh7th/cmp-cmdline")
+	plug("hrsh7th/nvim-cmp")
+
+	plug("L3MON4D3/LuaSnip")
+	plug("saadparwaiz1/cmp_luasnip")
+
 	plug("nvim-lualine/lualine.nvim")
 
 	plug("nvim-tree/nvim-web-devicons")
@@ -38,7 +50,11 @@ vim.call("plug#end")
 
 vim.g.rust_recommended_style = false
 
+-- LSP Config
+require("lspconfig")
+
 -- Plugin Config
+require("config.nvim-lspconfig")
 require("config.lualine")
 require("config.nvim-tree")
 
@@ -52,7 +68,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {callback = function()
 	vim.cmd.wincmd("k")
 
 	vim.api.nvim_create_autocmd({ "WinResized" }, {
-		callback = function(event)
+		callback = function()
 			vim.api.nvim_win_call(terminalWindow, function()
 				vim.cmd.resize(10)
 			end)

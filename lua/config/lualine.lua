@@ -8,6 +8,8 @@ local colors = {
 	white = '#f3f3f3',
 	grey  = '#7f7f7f',
 	black = '#000000',
+
+	red = "#e03c34",
 }
 
 local theme = {
@@ -18,7 +20,7 @@ local theme = {
 		d = { fg = colors.black, bg = colors.black  },
 		x = { fg = colors.grey,  bg = colors.black  },
 		y = { fg = colors.white, bg = colors.grey   },
-		z = { fg = colors.black, bg = colors.white  },
+		z = { fg = colors.black, bg = colors.normal    },
 	},
 	insert =  { a = { fg = colors.black, bg = colors.insert  } },
 	visual =  { a = { fg = colors.black, bg = colors.visual  } },
@@ -30,8 +32,8 @@ require('lualine').setup({
 	options = {
 		icons_enabled = true,
 		theme = theme,
-		component_separators = { left = '', right = ''},
-		section_separators = { left = '', right = ''},
+		component_separators = { left = '\\', right = '/'},
+		section_separators = { left = '', right = ''},
 		disabled_filetypes = {
 			statusline = {},
 			winbar = {},
