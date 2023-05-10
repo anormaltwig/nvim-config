@@ -58,21 +58,3 @@ require("config.nvim-lspconfig")
 require("config.lualine")
 require("config.nvim-tree")
 
-vim.api.nvim_create_autocmd({ "VimEnter" }, {callback = function()
-	-- Create Terminal Split
-	vim.cmd.split()
-	vim.cmd.wincmd("j")
-	local terminalWindow = vim.api.nvim_get_current_win()
-	vim.cmd.resize(10)
-	vim.cmd.terminal()
-	vim.cmd.wincmd("k")
-
-	vim.api.nvim_create_autocmd({ "WinResized" }, {
-		callback = function()
-			vim.api.nvim_win_call(terminalWindow, function()
-				vim.cmd.resize(10)
-			end)
-		end,
-	})
-end})
-
