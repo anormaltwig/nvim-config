@@ -3,14 +3,10 @@ local luasnip = require("luasnip")
 
 local cmp = require("cmp")
 cmp.setup({
-	snippet = {
-		expand = function(args)
-			luasnip.expand_snippet(args.body)
-		end,
-	},
+	snippet = {},
 	window = {},
 	mapping = cmp.mapping.preset.insert({
-		["<C-Space"] = cmp.mapping.complete(),
+		["<C-Space>"] = cmp.mapping.confirm(),
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
@@ -32,9 +28,24 @@ lspconfig.lua_ls.setup({
 			},
 			workspace = {
 				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false,
 			},
 		},
 	},
 	capabilities = require("cmp_nvim_lsp").default_capabilities(),
 })
+
+-- C/C++
+
+lspconfig.clangd.setup({
+	capabilities = require("cmp_nvim_lsp").default_capabilities(),
+})
+
+-- TypeScript
+
+lspconfig.tsserver.setup({
+	capabilities = require("cmp_nvim_lsp").default_capabilities(),
+})
+
+
 
