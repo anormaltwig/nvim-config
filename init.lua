@@ -9,8 +9,8 @@ vim.opt.termguicolors = true
 
 vim.opt.autoindent = true
 vim.opt.smarttab = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 3
+vim.opt.shiftwidth = 3
 
 vim.opt.list = true
 vim.opt.listchars = {
@@ -42,10 +42,14 @@ vim.call("plug#begin")
 	plug("L3MON4D3/LuaSnip")
 	plug("saadparwaiz1/cmp_luasnip")
 
+	plug("simrat39/rust-tools.nvim")
+
 	plug("nvim-lualine/lualine.nvim")
 
 	plug("nvim-tree/nvim-web-devicons")
 	plug("nvim-tree/nvim-tree.lua")
+
+	plug("andweeb/presence.nvim")
 vim.call("plug#end")
 
 vim.g.rust_recommended_style = false
