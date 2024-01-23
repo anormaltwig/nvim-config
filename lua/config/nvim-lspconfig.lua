@@ -66,6 +66,26 @@ lspconfig.gopls.setup({
 	capabilities = capabilities,
 })
 
+-- Python
+lspconfig.pylsp.setup({
+	capabilities = capabilities,
+
+	settings = {
+		pylsp = {
+			plugins = {
+				pycodestyle = {
+					ignore = {
+						-- Ignore conventions that are stupid.
+						"E302",
+						"W391",
+						"W191",
+					}
+				}
+			}
+		}
+	}
+})
+
 -- Rust
 require("rust-tools").setup({})
 
