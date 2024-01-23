@@ -44,6 +44,11 @@ lspconfig.lua_ls.setup({
 	capabilities = capabilities,
 })
 
+-- ASM
+lspconfig.asm_lsp.setup({
+	capabilities = capabilities,
+})
+
 -- C/C++
 lspconfig.clangd.setup({
 	capabilities = capabilities,
@@ -51,8 +56,13 @@ lspconfig.clangd.setup({
 
 -- C#
 lspconfig.csharp_ls.setup({
-	cmd = { "/home/twig/.dotnet/tools/csharp-ls" },
+	cmd = { "/home/twig/.dotnet/tools/csharp-ls" }, -- fix this later
 
+	capabilities = capabilities,
+})
+
+-- Go (Please)
+lspconfig.gopls.setup({
 	capabilities = capabilities,
 })
 

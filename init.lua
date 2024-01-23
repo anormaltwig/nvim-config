@@ -48,11 +48,13 @@ vim.call("plug#begin")
 
 	plug("nvim-tree/nvim-web-devicons")
 	plug("nvim-tree/nvim-tree.lua")
-
-	plug("andweeb/presence.nvim")
 vim.call("plug#end")
 
+-- DONT TELL ME HOW TO WRITE MY CODE
+-- YOUR RECOMMENDED STYLE SUCKS, I WILL USE TABS INSTEAD OF SPACES
+-- I DO NOT CARE ABOUT HOW ANCIENT YOUR PRACTICES ARE
 vim.g.rust_recommended_style = false
+vim.g.python_recommended_style = false
 
 -- LSP Config
 require("lspconfig")
