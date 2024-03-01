@@ -77,6 +77,7 @@ lspconfig.pylsp.setup({
 					ignore = {
 						-- Ignore conventions that are stupid.
 						"E302",
+						"E305",
 						"W391",
 						"W191",
 					}
@@ -87,7 +88,15 @@ lspconfig.pylsp.setup({
 })
 
 -- Rust
-require("rust-tools").setup({})
+lspconfig.rust_analyzer.setup({
+	capabilities = capabilities,
+	diagnostics = {
+		enable = true,
+		experimental = {
+			enable = true,
+		},
+	},
+})
 
 -- TypeScript
 lspconfig.tsserver.setup({
