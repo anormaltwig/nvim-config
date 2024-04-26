@@ -22,7 +22,7 @@ cmp.setup({
 	}),
 })
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 -- Lua
 local lspconfig = require("lspconfig")
@@ -41,34 +41,32 @@ lspconfig.lua_ls.setup({
 			},
 		},
 	},
-	capabilities = capabilities,
+	capabilities = cmp_nvim_lsp.default_capabilities(),
 })
 
 -- ASM
 lspconfig.asm_lsp.setup({
-	capabilities = capabilities,
+	capabilities = cmp_nvim_lsp.default_capabilities(),
 })
 
 -- C/C++
 lspconfig.clangd.setup({
-	capabilities = capabilities,
+	capabilities = cmp_nvim_lsp.default_capabilities(),
 })
 
 -- C#
 lspconfig.csharp_ls.setup({
-	cmd = { "/home/twig/.dotnet/tools/csharp-ls" }, -- fix this later
-
-	capabilities = capabilities,
+	capabilities = cmp_nvim_lsp.default_capabilities(),
 })
 
 -- Go (Please)
 lspconfig.gopls.setup({
-	capabilities = capabilities,
+	capabilities = cmp_nvim_lsp.default_capabilities(),
 })
 
 -- Python
 lspconfig.pylsp.setup({
-	capabilities = capabilities,
+	capabilities = cmp_nvim_lsp.default_capabilities(),
 
 	settings = {
 		pylsp = {
@@ -80,26 +78,35 @@ lspconfig.pylsp.setup({
 						"E305",
 						"W391",
 						"W191",
-					}
-				}
-			}
-		}
-	}
+					},
+				},
+			},
+		},
+	},
 })
 
 -- Rust
-lspconfig.rust_analyzer.setup({
-	capabilities = capabilities,
-	diagnostics = {
-		enable = true,
-		experimental = {
-			enable = true,
+require("rust-tools").setup({
+	capabilities = cmp_nvim_lsp.default_capabilities(),
+
+	server = {
+		settings = {
+			["rust-analyzer"] = {
+				check = {
+					command = "clippy",
+				},
+			},
 		},
 	},
 })
 
 -- TypeScript
 lspconfig.tsserver.setup({
-	capabilities = capabilities,
+	capabilities = cmp_nvim_lsp.default_capabilities(),
+})
+
+-- WGSL
+lspconfig.wgsl_analyzer.setup({
+	capabilities = cmp_nvim_lsp.default_capabilities(),
 })
 
