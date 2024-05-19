@@ -21,18 +21,22 @@ vim.opt.listchars = {
 
 vim.opt.termguicolors = true
 
--- Color
-local highlight = vim.cmd.highlight
-highlight("clear Pmenu")
-highlight("Pmenu guibg=#1a061d")
+vim.cmd.colorscheme("vim")
 
-highlight("CursorLine guibg=#241443")
-highlight("NonText guifg=#182c4d")
+-- Color
+local hi = vim.cmd.highlight
+hi("Normal guibg=NONE")
+hi("clear Pmenu")
+hi("Pmenu guibg=#1a061d")
+
+hi("CursorLine guibg=#241443")
+hi("NonText guifg=#182c4d")
 
 -- Vim Plug
 local plug = vim.fn["plug#"]
 vim.call("plug#begin")
 	plug("neovim/nvim-lspconfig")
+
 	plug("hrsh7th/cmp-nvim-lsp")
 	plug("hrsh7th/cmp-buffer")
 	plug("hrsh7th/cmp-path")
@@ -42,7 +46,7 @@ vim.call("plug#begin")
 	plug("L3MON4D3/LuaSnip")
 	plug("saadparwaiz1/cmp_luasnip")
 
-	plug("simrat39/rust-tools.nvim")
+	plug("anormaltwig/rust-tools.nvim")
 
 	plug("nvim-lualine/lualine.nvim")
 
