@@ -5,7 +5,10 @@ cmp.setup({
 	snippet = {
 		expand = function(a) return luasnip.lsp_expand(a.body) end,
 	},
-	window = {},
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
 	mapping = cmp.mapping.preset.insert({
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -23,10 +26,16 @@ cmp.setup({
 })
 
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local capabilities = cmp_nvim_lsp.default_capabilities()
+
+local function attach(client, _)
+	vim.lsp.inlay_hint.enable(client.server_capabilities.inlayHintProvider and true)
+end
 
 -- Lua
 local lspconfig = require("lspconfig")
 lspconfig.lua_ls.setup({
+	capabilities = capabilities,
 	settings = {
 		Lua = {
 			runtime = {
@@ -41,60 +50,60 @@ lspconfig.lua_ls.setup({
 			},
 		},
 	},
-	capabilities = cmp_nvim_lsp.default_capabilities(),
 })
 
 -- ASM
 lspconfig.asm_lsp.setup({
-	capabilities = cmp_nvim_lsp.default_capabilities(),
+	capabilities = capabilities,
 })
 
 -- C/C++
 lspconfig.clangd.setup({
-	capabilities = cmp_nvim_lsp.default_capabilities(),
+	capabilities = capabilities,
 })
 
 -- C#
 lspconfig.csharp_ls.setup({
-	capabilities = cmp_nvim_lsp.default_capabilities(),
+	capabilities = capabilities,
 })
 
 -- Go (Please)
 lspconfig.gopls.setup({
-	capabilities = cmp_nvim_lsp.default_capabilities(),
+	capabilities = capabilities,
 })
 
 -- Python
 lspconfig.pylsp.setup({
-	capabilities = cmp_nvim_lsp.default_capabilities(),
-
-	settings = {
-		pylsp = {
-			plugins = {
-				pycodestyle = {
-					ignore = {
-						-- Ignore conventions that are stupid.
-						"E302",
-						"E305",
-						"W391",
-						"W191",
-					},
-				},
-			},
-		},
-	},
+	capabilities = capabilities,
+	settings = { pylsp = { plugins = { pycodestyle = { ignore = {
+		-- Ignore conventions that are stupid.
+		"E302",
+		"E305",
+		"W391",
+		"W191",
+	}}}}}
 })
 
 -- Rust
-require("rust-tools").setup({
-	capabilities = cmp_nvim_lsp.default_capabilities(),
-
-	server = {
-		settings = {
-			["rust-analyzer"] = {
-				check = {
-					command = "clippy",
-				},
+local reloaded_hints = false
+lspconfig.rust_analyzer.setup({
+	capabilities = capabilities,
+	on_attach = attach,
+	handlers = {
+		["experimental/serverStatus"] = function(_, result, ctx, _)
+			if result.quiescent and not reloaded_hints then
+				for _, bufnr in ipairs(vim.lsp.get_buffers_by_client_id(ctx.client_id)) do
+					vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+					vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+				end
+				reloaded_hints = true
+			end
+		end,
+	},
+	settings = {
+		["rust-analyzer"] = {
+			check = {
+				command = "clippy",
 			},
 		},
 	},
@@ -102,11 +111,11 @@ require("rust-tools").setup({
 
 -- TypeScript
 lspconfig.tsserver.setup({
-	capabilities = cmp_nvim_lsp.default_capabilities(),
+	capabilities = capabilities,
 })
 
 -- WGSL
 lspconfig.wgsl_analyzer.setup({
-	capabilities = cmp_nvim_lsp.default_capabilities(),
+	capabilities = capabilities,
 })
 

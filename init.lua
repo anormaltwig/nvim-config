@@ -21,49 +21,47 @@ vim.opt.listchars = {
 
 vim.opt.termguicolors = true
 
-vim.cmd.colorscheme("vim")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+---@diagnostic disable-next-line: undefined-field
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+---@diagnostic disable-next-line: undefined-field
+vim.opt.rtp:prepend(lazypath)
 
--- Color
-local hi = vim.cmd.highlight
-hi("Normal guibg=NONE")
-hi("clear Pmenu")
-hi("Pmenu guibg=#1a061d")
+require("lazy").setup({
+	"neovim/nvim-lspconfig",
 
-hi("CursorLine guibg=#241443")
-hi("NonText guifg=#182c4d")
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
+	"hrsh7th/nvim-cmp",
 
--- Vim Plug
-local plug = vim.fn["plug#"]
-vim.call("plug#begin")
-	plug("neovim/nvim-lspconfig")
+	"L3MON4D3/LuaSnip",
+	"saadparwaiz1/cmp_luasnip",
 
-	plug("hrsh7th/cmp-nvim-lsp")
-	plug("hrsh7th/cmp-buffer")
-	plug("hrsh7th/cmp-path")
-	plug("hrsh7th/cmp-cmdline")
-	plug("hrsh7th/nvim-cmp")
+	"nvim-lualine/lualine.nvim",
 
-	plug("L3MON4D3/LuaSnip")
-	plug("saadparwaiz1/cmp_luasnip")
-
-	plug("anormaltwig/rust-tools.nvim")
-
-	plug("nvim-lualine/lualine.nvim")
-
-	plug("nvim-tree/nvim-web-devicons")
-	plug("nvim-tree/nvim-tree.lua")
-vim.call("plug#end")
+	"nvim-tree/nvim-web-devicons",
+	"nvim-tree/nvim-tree.lua",
+})
 
 -- DONT TELL ME HOW TO WRITE MY CODE
--- YOUR RECOMMENDED STYLE SUCKS, I WILL USE TABS INSTEAD OF SPACES
--- I DO NOT CARE ABOUT HOW ANCIENT YOUR PRACTICES ARE
+-- I WILL USE TABS INSTEAD OF SPACES
 vim.g.rust_recommended_style = false
 vim.g.python_recommended_style = false
 
--- LSP Config
-require("lspconfig")
-
--- Plugin Config
+-- Config
+require("config.colors")
+require("config.border")
 require("config.nvim-lspconfig")
 require("config.lualine")
 require("config.nvim-tree")
