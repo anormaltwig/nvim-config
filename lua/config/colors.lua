@@ -1,6 +1,7 @@
 local colors = {
 	CursorLine = "guibg=#241443",
 	NonText = "guifg=#112233",
+	LspInlayHint = "guifg=#228866",
 
 	NormalFloat = "guibg=NONE guifg=#ffffff",
 
