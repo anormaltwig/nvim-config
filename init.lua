@@ -45,9 +45,6 @@ require("lazy").setup({
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/nvim-cmp",
 
-	"L3MON4D3/LuaSnip",
-	"saadparwaiz1/cmp_luasnip",
-
 	"nvim-lualine/lualine.nvim",
 
 	"nvim-tree/nvim-web-devicons",

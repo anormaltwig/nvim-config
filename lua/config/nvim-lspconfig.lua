@@ -1,9 +1,45 @@
-local luasnip = require("luasnip")
+-- This is where the magic happens.
+local kind_icons = {
+  Text = "",
+  Method = "󰆧",
+  Function = "󰊕",
+  Constructor = "",
+  Field = "󰇽",
+  Variable = "󰂡",
+  Class = "󰠱",
+  Interface = "",
+  Module = "",
+  Property = "󰜢",
+  Unit = "",
+  Value = "󰎠",
+  Enum = "",
+  Keyword = "󰌋",
+  Snippet = "",
+  Color = "󰏘",
+  File = "󰈙",
+  Reference = "",
+  Folder = "󰉋",
+  EnumMember = "",
+  Constant = "󰏿",
+  Struct = "",
+  Event = "",
+  Operator = "󰆕",
+  TypeParameter = "󰅲",
+}
 
 local cmp = require("cmp")
 cmp.setup({
-	snippet = {
-		expand = function(a) return luasnip.lsp_expand(a.body) end,
+	formatting = {
+		format = function(entry, vim_item)
+			local source = entry.source.name
+			vim_item.menu = ({
+				buffer = "Buffer",
+				nvim_lsp = "LSP",
+				luasnip = "LuaSnip",
+			})[source] or source
+			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+			return vim_item
+		end
 	},
 	window = {
 		completion = cmp.config.window.bordered(),
