@@ -16,7 +16,7 @@ vim.opt.list = true
 vim.opt.listchars = {
 	["tab"] = "⟶ ",
 	["trail"] = "·",
-	["eol"] = "⏎"
+	["eol"] = "⏎",
 }
 
 vim.opt.termguicolors = true
@@ -47,10 +47,12 @@ require("lazy").setup({
 
 	"nvim-treesitter/nvim-treesitter",
 
-	"nvim-lualine/lualine.nvim",
+	"nvim-telescope/telescope.nvim",
 
-	"nvim-tree/nvim-web-devicons",
-	"nvim-tree/nvim-tree.lua",
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 })
 
 -- DONT TELL ME HOW TO WRITE MY CODE
@@ -63,5 +65,6 @@ require("config.colors")
 require("config.border")
 require("config.nvim-lspconfig")
 require("config.lualine")
-require("config.nvim-tree")
+require("config.telescope")
+require("config.termfloat")
 
