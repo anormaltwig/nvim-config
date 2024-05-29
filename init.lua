@@ -45,6 +45,8 @@ require("lazy").setup({
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/nvim-cmp",
 
+	"nvim-treesitter/nvim-treesitter",
+
 	"nvim-lualine/lualine.nvim",
 
 	"nvim-tree/nvim-web-devicons",

@@ -51,7 +51,6 @@ cmp.setup({
 		["<S-Tab>"] = cmp.mapping(function()
 			vim.lsp.buf.hover()
 		end),
-		["<C-Space>"] = cmp.mapping.confirm({ select = true }),
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
