@@ -67,7 +67,7 @@ vim.keymap.set({"n", "i"}, "<C-e>", function()
 	quickterm:open()
 end)
 
-vim.keymap.set("t", "<esc>", function()
+vim.keymap.set("t", "<C-e>", function()
 	if quickterm:active() then
 		quickterm:close()
 	end
