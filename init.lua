@@ -66,5 +66,5 @@ require("config.border")
 require("config.nvim-lspconfig")
 require("config.lualine")
 require("config.telescope")
-require("config.termfloat")
+require("config.quickterm")
 
