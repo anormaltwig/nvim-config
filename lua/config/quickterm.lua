@@ -2,7 +2,13 @@ local border = require("config.border")
 
 local quickterm = { cmds = {} }
 
+function quickterm:active()
+	return self.window and vim.api.nvim_win_is_valid(self.window[1])
+end
+
 function quickterm:open()
+	if self:active() then return end
+
 	local ui = vim.api.nvim_list_uis()[1]
 
 	local width = math.floor(ui.width * 0.5)
@@ -26,22 +32,16 @@ function quickterm:open()
 			self:close()
 		end,
 	})
-	vim.api.nvim_feedkeys("i", "m", false)
+	vim.cmd.startinsert()
 
 	local function cmd(autocmd)
 		table.insert(self.cmds, autocmd)
 	end
 
-	cmd(vim.api.nvim_create_autocmd("ModeChanged", {
-		callback = function(data)
-			if string.sub(data.match, 1, 2) == "t:" then
-				self:close()
-			end
-		end
-	}))
-
 	cmd(vim.api.nvim_create_autocmd("BufLeave", {
-		callback = function() end
+		callback = function()
+			self:close()
+		end
 	}))
 end
 
@@ -59,17 +59,11 @@ function quickterm:close()
 	self.window = nil
 end
 
-function quickterm:active()
-	return self.window and vim.api.nvim_win_is_valid(self.window[1])
+function quickterm:toggle()
+	return self:active() and self:close() or self:open()
 end
 
-vim.keymap.set({"n", "i"}, "<C-e>", function()
-	quickterm:open()
-end)
-
-vim.keymap.set("t", "<C-e>", function()
-	if quickterm:active() then
-		quickterm:close()
-	end
+vim.keymap.set({"n", "t"}, "<C-e>", function()
+	quickterm:toggle()
 end)
 
