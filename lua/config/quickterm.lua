@@ -1,6 +1,6 @@
 local border = require("config.border")
 
-local quickterm = { cmds = {} }
+local quickterm = {}
 
 function quickterm:active()
 	return self.window and vim.api.nvim_win_is_valid(self.window[1])
@@ -9,10 +9,8 @@ end
 function quickterm:open()
 	if self:active() then return end
 
-	local ui = vim.api.nvim_list_uis()[1]
-
-	local width = math.floor(ui.width * 0.5)
-	local height = math.floor(ui.height * 0.5)
+	local width = math.floor(vim.o.columns * 0.5)
+	local height = math.floor(vim.o.lines * 0.5)
 
 	local buf = vim.api.nvim_create_buf(true, true)
 	local win = vim.api.nvim_open_win(buf, true, {
@@ -34,24 +32,17 @@ function quickterm:open()
 	})
 	vim.cmd.startinsert()
 
-	local function cmd(autocmd)
-		table.insert(self.cmds, autocmd)
-	end
-
-	cmd(vim.api.nvim_create_autocmd("BufLeave", {
+	self.buf_leave = vim.api.nvim_create_autocmd("BufLeave", {
 		callback = function()
 			self:close()
 		end
-	}))
+	})
 end
 
 function quickterm:close()
 	if not self:active() then return end
 
-	for _ = 1, #self.cmds do
-		local autocmd = table.remove(self.cmds, #self.cmds)
-		vim.api.nvim_del_autocmd(autocmd)
-	end
+	vim.api.nvim_del_autocmd(self.buf_leave);
 
 	vim.api.nvim_win_close(self.window[1], true)
 	vim.api.nvim_buf_delete(self.window[2], { force = true })

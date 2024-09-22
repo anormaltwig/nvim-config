@@ -144,11 +144,6 @@ lspconfig.rust_analyzer.setup({
 	},
 })
 
--- TypeScript
-lspconfig.tsserver.setup({
-	capabilities = capabilities,
-})
-
 -- WGSL
 lspconfig.wgsl_analyzer.setup({
 	capabilities = capabilities,

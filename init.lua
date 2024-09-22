@@ -8,9 +8,9 @@ vim.opt.cursorline = true
 vim.opt.termguicolors = true
 
 vim.opt.autoindent = true
-vim.opt.smarttab = true
 vim.opt.tabstop = 3
-vim.opt.shiftwidth = 3
+vim.opt.shiftwidth = 0
+vim.opt.expandtab = false
 
 vim.opt.list = true
 vim.opt.listchars = {
@@ -20,6 +20,11 @@ vim.opt.listchars = {
 }
 
 vim.opt.termguicolors = true
+
+-- DONT TELL ME HOW TO WRITE MY CODE
+-- I WILL USE TABS INSTEAD OF SPACES
+vim.g.rust_recommended_style = false
+vim.g.python_recommended_style = false
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 ---@diagnostic disable-next-line: undefined-field
@@ -45,7 +50,10 @@ require("lazy").setup({
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/nvim-cmp",
 
-	"nvim-treesitter/nvim-treesitter",
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+	},
 
 	"nvim-telescope/telescope.nvim",
 
@@ -55,10 +63,12 @@ require("lazy").setup({
 	},
 })
 
--- DONT TELL ME HOW TO WRITE MY CODE
--- I WILL USE TABS INSTEAD OF SPACES
-vim.g.rust_recommended_style = false
-vim.g.python_recommended_style = false
+vim.filetype.add({
+	extension = {
+		vs = "glsl",
+		fs = "glsl",
+	}
+})
 
 -- Config
 require("config.colors")
@@ -67,4 +77,5 @@ require("config.nvim-lspconfig")
 require("config.lualine")
 require("config.telescope")
 require("config.quickterm")
+require("config.treesitter")
 
