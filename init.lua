@@ -70,12 +70,15 @@ vim.filetype.add({
 	}
 })
 
+-- Tools
+require("tools.quickterm")
+require("tools.dishwasher")
+
 -- Config
 require("config.colors")
 require("config.border")
 require("config.nvim-lspconfig")
 require("config.lualine")
 require("config.telescope")
-require("config.quickterm")
 require("config.treesitter")
 

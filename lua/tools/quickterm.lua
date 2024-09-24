@@ -1,5 +1,7 @@
 local border = require("config.border")
 
+local shell = os.getenv("SHELL") or "bash"
+
 local quickterm = {}
 
 function quickterm:active()
@@ -15,17 +17,18 @@ function quickterm:open()
 	local buf = vim.api.nvim_create_buf(true, true)
 	local win = vim.api.nvim_open_win(buf, true, {
 		relative = "cursor",
-		row = 0,
 		col = 0,
+		row = 0,
 		width = width,
 		height = height,
+
 		border = border,
 		noautocmd = true,
 	})
 
 	self.window = { win, buf }
 
-	vim.fn.termopen("zsh", {
+	vim.fn.termopen(shell, {
 		on_exit = function()
 			self:close()
 		end,
