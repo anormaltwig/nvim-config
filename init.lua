@@ -72,7 +72,9 @@ vim.filetype.add({
 
 -- Tools
 require("tools.quickterm")
-require("tools.dishwasher")
+
+-- Im not finishing this
+-- require("tools.dishwasher")
 
 -- Config
 require("config.colors")

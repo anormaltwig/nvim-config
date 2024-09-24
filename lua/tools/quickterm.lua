@@ -16,6 +16,9 @@ function quickterm:open()
 
 	local buf = vim.api.nvim_create_buf(true, true)
 	local win = vim.api.nvim_open_win(buf, true, {
+		title = "Quickterm",
+		title_pos = "center",
+
 		relative = "cursor",
 		col = 0,
 		row = 0,
