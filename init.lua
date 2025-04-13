@@ -41,7 +41,6 @@ if not vim.uv.fs_stat(lazypath) then
 		lazypath,
 	})
 end
----@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({

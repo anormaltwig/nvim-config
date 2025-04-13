@@ -1,4 +1,10 @@
 -- This is where the magic happens.
+
+vim.diagnostic.config({
+	virtual_text = { severity = { max = vim.diagnostic.severity.WARN } },
+	virtual_lines = { severity = { min = vim.diagnostic.severity.ERROR } },
+})
+
 local kind_icons = {
 	Text = "",
 	Method = "󰆧",
@@ -63,12 +69,9 @@ cmp.setup({
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
-local function attach(client, _)
-	vim.lsp.inlay_hint.enable(client.server_capabilities.inlayHintProvider and true)
-end
+local lspconfig = require("lspconfig")
 
 -- Lua
-local lspconfig = require("lspconfig")
 lspconfig.lua_ls.setup({
 	capabilities = capabilities,
 	settings = {
@@ -80,7 +83,6 @@ lspconfig.lua_ls.setup({
 				globals = { "vim" },
 			},
 			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
 				checkThirdParty = false,
 			},
 		},
@@ -120,21 +122,8 @@ lspconfig.pylsp.setup({
 })
 
 -- Rust
-local reloaded_hints = false
 lspconfig.rust_analyzer.setup({
 	capabilities = capabilities,
-	on_attach = attach,
-	handlers = {
-		["experimental/serverStatus"] = function(_, result, ctx, _)
-			if result.quiescent and not reloaded_hints then
-				for _, bufnr in ipairs(vim.lsp.get_buffers_by_client_id(ctx.client_id)) do
-					vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
-					vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-				end
-				reloaded_hints = true
-			end
-		end,
-	},
 	settings = {
 		["rust-analyzer"] = {
 			check = {
