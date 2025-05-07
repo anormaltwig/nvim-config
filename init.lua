@@ -1,6 +1,8 @@
 -- Editor Settings
 vim.opt.equalalways = false
 
+vim.opt.mouse = ""
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -69,6 +71,8 @@ vim.filetype.add({
 	extension = {
 		vs = "glsl",
 		fs = "glsl",
+		vsh = "glsl",
+		fsh = "glsl",
 	}
 })
 
