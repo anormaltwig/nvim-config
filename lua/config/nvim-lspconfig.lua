@@ -89,11 +89,6 @@ lspconfig.lua_ls.setup({
 	},
 })
 
--- ASM
-lspconfig.asm_lsp.setup({
-	capabilities = capabilities,
-})
-
 -- C/C++
 lspconfig.clangd.setup({
 	capabilities = capabilities,

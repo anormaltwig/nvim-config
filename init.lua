@@ -1,6 +1,8 @@
 -- Editor Settings
 vim.opt.equalalways = false
 
+vim.opt.clipboard = "unnamedplus"
+
 vim.opt.mouse = ""
 
 vim.opt.number = true
