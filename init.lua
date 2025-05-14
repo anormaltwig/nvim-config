@@ -28,10 +28,11 @@ vim.opt.termguicolors = true
 vim.opt.fileformat = "unix"
 vim.opt.fileformats = "unix"
 
--- DONT TELL ME HOW TO WRITE MY CODE
--- I WILL USE TABS INSTEAD OF SPACES
+-- goo goo ga ga ass progrmamers think spaces should be used instead of tabs.
+-- baby need a binky? baby need to force their indent length on everyone else?
 vim.g.rust_recommended_style = false
 vim.g.python_recommended_style = false
+vim.g.editorconfig = false
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 ---@diagnostic disable-next-line: undefined-field
