@@ -30,8 +30,7 @@ vim.opt.fileformats = "unix"
 
 -- goo goo ga ga ass progrmamers think spaces should be used instead of tabs.
 -- baby need a binky? baby need to force their indent length on everyone else?
-vim.g.rust_recommended_style = false
-vim.g.python_recommended_style = false
+vim.cmd.filetype("plugin off")
 vim.g.editorconfig = false
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -81,9 +80,7 @@ vim.filetype.add({
 
 -- Tools
 require("tools.quickterm")
-
--- Im not finishing this
--- require("tools.dishwasher")
+-- require("tools.netrw_popup")
 
 -- Config
 require("config.colors")
